@@ -1,0 +1,27 @@
+.jobs {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1148px;
+    padding: 0px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include themify($themes) {
+        background-color: themed('primary-background-color');
+    }
+
+    &__loading-icon {
+        margin-top: 40px;
+    }
+
+    &__button {
+        width: 141px;
+        height: 48px;
+        margin-top: 32px;
+        margin-bottom: 62px;
+        @include breakpoint-up(medium) {
+            margin-top: 56px;
+        }
+    }
+
+}
