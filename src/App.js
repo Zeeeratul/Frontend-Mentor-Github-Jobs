@@ -8,25 +8,32 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
+import {
+    QueryClient,
+    QueryClientProvider,
+} from 'react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
-
     const { theme, changeTheme } = useTheme()
 
     return (
-        <div className={`app theme-${theme}`}>
-            <Router>
-                <Header theme={theme} changeTheme={changeTheme} />
-                <Switch>
-                    <Route exact path="/">
-                        <Index />
-                    </Route>
-                    <Route path="/:jobId">
-                        <Job />
-                    </Route>
-                </Switch>
-            </Router>
-        </div>
+        <QueryClientProvider client={queryClient}>
+            <div className={`app theme-${theme}`}>
+                <Router>
+                    <Header theme={theme} changeTheme={changeTheme} />
+                    <Switch>
+                        <Route exact path="/">
+                            <Index />
+                        </Route>
+                        <Route path="/:jobId">
+                            <Job />
+                        </Route>
+                    </Switch>
+                </Router>
+            </div>
+        </QueryClientProvider>
     )
 }
 

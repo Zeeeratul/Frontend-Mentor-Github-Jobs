@@ -5,8 +5,10 @@ export const calculateTimeSinceCreation = (dateString) => {
     const date = new Date(dateString).getTime()
     const hoursDifference = ((todayDate - date) / 1000) / 3600
 
-    if (hoursDifference < 24)
+    if (hoursDifference < 24) {
+        if (hoursDifference <= 1) return '1h ago'
         return `${hoursDifference.toFixed(0)}h ago`
+    }
     if (hoursDifference < 168)
         return `${(hoursDifference / 24).toFixed(0)}d ago`
     if (hoursDifference < 744)

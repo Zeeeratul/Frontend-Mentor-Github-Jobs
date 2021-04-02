@@ -8,7 +8,12 @@
     line-height: 16px;
     user-select: none;
 
+    @include themify($themes) {
+        color: themed('primary-text-color');
+    }
+
     input {
+        position: absolute;
         cursor: pointer;
         opacity: 0;
         height: 0;
@@ -21,7 +26,7 @@
         overflow: hidden;
         border-radius: 3px;
         margin-right: 16px;
-
+        margin-bottom: 4px;
         background-color: rgba($very-dark-blue, 0.1);
         .theme-dark & {
             background-color: rgba($white, 0.1);
