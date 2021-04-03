@@ -1,9 +1,3 @@
-$primary-text-color: "primary-text-color";
-$secondary-text-color: "secondary-text-color";
-$primary-background-color: "primary-background-color";
-$secondary-background-color: "secondary-background-color";
-$checkbox-color: "checkbox-color";
-
 $violet: #5964E0;
 $light-violet: #939BF4;
 $white: #FFFFFF;
@@ -13,21 +7,20 @@ $dark-gray: #6E8098;
 $very-dark-blue: #19202D;
 $midnight: #121721;
 
-
 $themes: (
     light: (
-        $primary-text-color: $very-dark-blue,
-        $secondary-text-color: $dark-gray,
-        $primary-background-color: $light-gray,
-        $secondary-background-color: $white,
-        $checkbox-color: rgba(#19202D, 0.1),
+        primary-text-color: $very-dark-blue,
+        secondary-text-color: $dark-gray,
+        primary-background-color: $light-gray,
+        secondary-background-color: $white,
+        checkbox-color: rgba(#19202D, 0.1),
     ),
     dark: (
-        $primary-text-color: $white,
-        $secondary-text-color: $gray,
-        $primary-background-color: $midnight,
-        $secondary-background-color: $very-dark-blue,
-        $checkbox-color: rgba(#FFFFFF, 0.1),
+        primary-text-color: $white,
+        secondary-text-color: $gray,
+        primary-background-color: $midnight,
+        secondary-background-color: $very-dark-blue,
+        checkbox-color: rgba(#FFFFFF, 0.1),
     )
 );
 

@@ -1,4 +1,3 @@
-import {queryCache} from 'react-query'
 const apiURL = 'https://cors.bridged.cc/https://jobs.github.com'
 
 async function client(

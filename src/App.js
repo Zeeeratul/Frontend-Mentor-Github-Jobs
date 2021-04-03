@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from './hooks/useTheme';
+import { useTheme } from './utils/useTheme';
 import Header from './component/Header';
 import Index from './pages/index/';
 import Job from './pages/job/';
@@ -19,8 +19,8 @@ function App() {
     const { theme, changeTheme } = useTheme()
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <div className={`app theme-${theme}`}>
+        <div className={`app theme-${theme}`}>
+            <QueryClientProvider client={queryClient}>
                 <Router>
                     <Header theme={theme} changeTheme={changeTheme} />
                     <Switch>
@@ -32,8 +32,8 @@ function App() {
                         </Route>
                     </Switch>
                 </Router>
-            </div>
-        </QueryClientProvider>
+            </QueryClientProvider>
+        </div>
     )
 }
 

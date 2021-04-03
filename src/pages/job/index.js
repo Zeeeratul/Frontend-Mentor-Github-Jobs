@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useJob } from '../../utils/useJobs';
 import { useParams } from "react-router-dom";
 import { ReactComponent as LoadingSpinner } from '../../assets/desktop/loading-circle.svg';
 import Main from './Main';
@@ -6,36 +7,27 @@ import Footer from './Footer';
 
 function JobIndex() {
     const { jobId } = useParams()
-    const [state, setState] = useState({
-        status: 'pending',
-        data: null,
-        error: null
-    })
-    const {data: job, status} = state
+    const {
+        job,
+        isLoading,
+        isSuccess,
+    } = useJob(jobId)
 
-    useEffect(() => {
-        setState({ status: 'pending', data: null, error: null })
-
-        fetch(`https://cors.bridged.cc/https://jobs.github.com/positions/${jobId}.json`)
-            .then((res) => res.json())
-            .then((data) => {
-                setState({ status: 'fulfilled', data: data })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [jobId])
-
-    if (status === 'pending') 
+    if (isLoading) 
         return (
             <LoadingSpinner className="loading-spinner" />
         )
+    
+    if (isSuccess)
+        return (
+            <>
+                <Main job={job} />
+                <Footer title={job?.title} company={job?.company} />
+            </>
+        )
 
     return (
-        <>
-            <Main job={job} />
-            <Footer title={job?.title} company={job?.company} />
-        </>
+        <p>error</p>
     );
 }
 

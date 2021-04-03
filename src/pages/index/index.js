@@ -1,58 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SearchBar from './searchBar/';
-import JobList from './JobList';
-import { useHistory } from 'react-router-dom'
-import { calculateTimeSinceCreation } from '../../utils/calculateTimeSinceCreation';
+import JobCard from './JobCard';
 import {ReactComponent as LoadingSpinner} from '../../assets/desktop/loading-circle.svg';
 import { useJobs } from '../../utils/useJobs'
-import {useQuery, useInfiniteQuery, queryCache} from 'react-query'
-import {client} from '../../utils/api-client'
 
 function JobListIndex() {
     const [requestOptions, setRequestOptions] = useState({})
-    const [page, setPage] = useState(1)
-    const history = useHistory()
-    const handleRedirectJob = (jobId) => history.push(`/${jobId}`)
 
 
-    const fetchJobs = (context) => {
-        console.log('context', context);
-        return client(`positions.json?page=${1}`)
-
-    }
-
+    // error boundary
     const {
-        data: jobs,
-        error,
-        fetchNextPage,
-        hasNextPage,
+        jobs,
+        fetchMoreJobs,
         isFetching,
-        isFetchingNextPage,
         isLoading,
         isSuccess,
-        status,
-    } = useInfiniteQuery('jobs', fetchJobs, {
-        getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
-    })
-
-
-
-
-    const fetchMoreJobs = () => {
-        const newPage = page + 1
-        setPage(newPage)
-        // fetchNextPage({ page: newPage })
-        fetchNextPage({ test: 'tegs'})
-    }
-
-    // console.log(jobs)
-    // const nextPage = () => {
-    //     fetchNextPage(page + 1)
-    // }
-
-
-
-    // console.log(getNextPageParam)
+    } = useJobs(requestOptions)
 
     if (isLoading) {
         return (
@@ -71,25 +34,16 @@ function JobListIndex() {
                     {jobs && jobs.pages.map((page, index) => (
                         <React.Fragment key={`page_${index}`}>
                             {page.map(job => (
-                                <div key={job.id} className="card" 
-                                onClick={() => handleRedirectJob(job.id)}
-                                >
-                                    {job.company_logo &&
-                                        <div className="card__logo">
-                                            <img src={job.company_logo} alt="company-logo" />
-                                        </div>
-                                    }
-                                    <p className="card__information">{calculateTimeSinceCreation(job.created_at)} <span className="card__dot" /> {job.type}</p>
-                                    <p className="card__title">{job.title}</p>
-                                    <p className="card__company-name">{job.company}</p>
-                                    <p className="card__location">{job.location}</p>
-                                </div>
+                                <JobCard key={job.id} job={job} />
                             ))}
                         </React.Fragment>
                         )
                     )}
                 </div>
-                <button onClick={() => fetchMoreJobs()} className="load-more-button button1">Load More</button>
+                {isFetching ?
+                    <LoadingSpinner className="loading-icon" /> :
+                    <button onClick={() => fetchMoreJobs()} className="load-more-button button1">{isFetching ? 'Loading ...' : 'Load More'}</button>
+                }
             </main>  
         )
 

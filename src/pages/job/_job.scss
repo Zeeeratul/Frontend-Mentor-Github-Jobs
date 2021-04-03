@@ -55,12 +55,19 @@
                 img {
                     width: 100%;
                 }
+                @include themify($themes) {
+                    background-color: themed('primary-background-color');
+                }
 
                 @include breakpoint-up(medium) {
                     margin: 0px;
                     width: 140px;
                     height: 140px;
+                    @include themify($themes) {
+                        background-color: transparent;
+                    }
                 }
+
             }
 
             &__text-block {
@@ -254,6 +261,8 @@
 
         &__text-block {
             display: none;
+            max-width: 400px;
+
         }
 
         &__job-title {

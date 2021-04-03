@@ -1,27 +1,62 @@
-import {useQuery, useInfiniteQuery, queryCache} from 'react-query'
+import {useInfiniteQuery, useQuery} from 'react-query'
 import {client} from './api-client'
+import { useState, useEffect } from 'react'
 
-function useJobs(query) {
-    const { description, location, full_time, page = 1 } = query
-    const pageParams = page ? `page=${page}&` : ''
-    // const descriptionParams = description ? `description=${description}&` : ''
-    // const locationParams = location ? `location=${location}&` : ''
-    // const fullTimeParams = full_time ? `full_time=true` : ''
-    // const queryString = 'positions.json?' + pageParams + descriptionParams + locationParams + fullTimeParams
-    
+function useJobs({ description, location, full_time }) {
+  const [page, setPage] = useState(1)
 
-    const result = useInfiniteQuery({
-        // queryKey: ['jobs', { description, location, full_time }],
-        queryKey: ['jobs'],
-        queryFn: ({ pageParam = 1 }) =>
-          client(`positions.json?page=${pageParam}`).then(data => data),
-        //   client(queryString).then(data => data),
-    })
-    return {...result, jobs: result.data ?? []}
+  const fetchJobs = ({ pageParam = 1 }) => {
+    const descriptionParam = description ? `&description=${description}` : ''
+    const locationParam = location ? `&location=${location}` : ''
+    const fullTimeParam = full_time ? '&full_time=true' : ''
+    return client(`positions.json?page=${pageParam}${descriptionParam}${locationParam}${fullTimeParam}`)
+  }
+
+  const {
+    data: jobs,
+    error,
+    fetchNextPage,
+    isFetching,
+    isLoading,
+    isSuccess,
+  } = useInfiniteQuery(['jobs', description, location, full_time], fetchJobs)
+
+  const fetchMoreJobs = () => {
+    setPage(page + 1)
+    fetchNextPage({ pageParam: page + 1 })
+  }
+
+  // when description / location / full_time change, set Page to initial (page 1)
+  useEffect(() => {
+    setPage(1)
+  }, [description, location, full_time])
+
+  return {
+    jobs,
+    error,
+    fetchMoreJobs,
+    isFetching,
+    isLoading,
+    isSuccess,
+  }
 }
 
-// const useJob(jobId) {
-//     const { jobs } = useJobs()
-// }
+const useJob = (jobId) => {
+  const fetchJob = () => client(`positions/${jobId}.json`)
 
-export { useJobs }
+  const {
+    data: job,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useQuery(['job', jobId], fetchJob)
+
+  return {
+    job,
+    isLoading,
+    isError,
+    isSuccess,
+  }
+}
+
+export { useJobs, useJob }
