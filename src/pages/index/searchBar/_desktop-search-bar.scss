@@ -1,8 +1,9 @@
 .desktop-search-bar {
     width: 100%;
+    max-width: 1110px;
+    margin-top: -40px;
     height: 80px;
     border-radius: 6px;
-    margin-top: -40px;
     display: flex;
     align-items: center;
 

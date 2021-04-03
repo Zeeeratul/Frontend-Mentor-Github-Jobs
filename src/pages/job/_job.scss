@@ -4,14 +4,23 @@
 
 .main-wrapper {
     flex-grow: 1;
-    width: 100%;
     padding: 0px 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include themify($themes) {
+        background-color: themed('primary-background-color');
+    }
+
+    @include breakpoint-up(medium) {
+        padding: 0px 40px;
+    }
 
     .job {
         max-width: 730px;
         width: 100%;
-        margin: 0px auto;
-
+        
         .company {
             position: relative;
             width: 100%;
@@ -55,7 +64,9 @@
             }
 
             &__text-block {
-                margin-left: 40px;
+                @include breakpoint-up(medium) {
+                    margin-left: 40px;
+                }
             }
 
             &__name {

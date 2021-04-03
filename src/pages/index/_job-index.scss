@@ -1,8 +1,7 @@
-.jobs {
+.jobs-main {
     flex-grow: 1;
-    width: 100%;
-    max-width: 1148px;
     padding: 0px 24px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,19 +13,131 @@
         padding: 0px 40px;
     }
 
-    &__loading-icon {
+    .loading-icon {
         margin-top: 40px;
         margin-bottom: 40px;
     }
 
-    &__button {
-        width: 141px;
-        height: 48px;
-        margin-top: 32px;
-        margin-bottom: 62px;
+    .job-list {
+        width: 100%;
+        max-width: 1110px;
+        flex-grow: 1;
+        margin-top: 58px;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        row-gap: 50px;
+    
         @include breakpoint-up(medium) {
-            margin-top: 56px;
+            margin-top: 70px;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 20px;
+        }
+    
+        @include breakpoint-up(large) {
+            margin-top: 105px;
+            column-gap: 30px;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .card {
+            cursor: pointer;
+            width: 100%;
+            height: 253px;
+            border-radius: 6px;
+            padding: 32px;
+            padding-top: 50px;
+            display: flex;
+            flex-direction: column;
+            &:hover {
+                opacity: 0.8;
+            }
+    
+            @include themify($themes) {
+                background-color: themed('secondary-background-color');
+            }
+    
+            @include breakpoint-up(large) {
+                max-width: 350px;
+            }
+    
+            &__logo {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                margin-top: -75px;
+                border-radius: 15px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+    
+                @include themify($themes) {
+                    background-color: themed('primary-background-color');
+                }
+                img {
+                    width: 100%;
+                }
+            }
+    
+            &__information {
+                margin: 0px;
+                color: $dark-gray;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 16px;
+            }
+    
+            &__dot {
+                margin: 0px 6px;
+                border-radius: 100%;
+                background-color: $dark-gray;
+                height: 4px;
+                width: 4px;
+                display: inline-block;
+            }
+    
+            &__title {
+                margin: 16px 0px 17px;
+                font-weight: bold;
+                font-size: 20px;
+                line-height: 20px;
+                @include themify($themes) {
+                    color: themed('primary-text-color');
+                }
+            }
+    
+            &__company-name {
+                margin: 0px;
+                color: $dark-gray;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 16px;
+            }
+    
+            &__location {
+                margin: 0px;
+                margin-top: auto;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 18px;
+                color: $violet;
+            }
         }
     }
 
+    .load-more-button {
+        height: 48px;
+        width: 141px;
+        margin-top: 32px;
+        margin-bottom: 62px;
+
+        @include breakpoint-up(medium) {
+            margin-top: 56px;
+        }
+
+        @include breakpoint-up(large) {
+            margin-bottom: 104px;
+        }
+    }
 }

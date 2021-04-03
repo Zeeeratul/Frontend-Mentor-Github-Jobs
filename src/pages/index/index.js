@@ -55,28 +55,17 @@ function JobListIndex() {
     // console.log(getNextPageParam)
 
     if (isLoading) {
-        // // If user ask for more jobs
-        // if (jobs && jobs.length > 0) {
-        //     return (
-        //         <main className="jobs">
-        //             <SearchBar setRequestOptions={setRequestOptions} />
-        //             <JobList jobs={jobs} />
-        //             <LoadingSpinner className="jobs__loading-icon" />
-        //         </main>  
-        //     )
-        // }
-        // On page load
         return (
-            <main className="jobs">
+            <main className="jobs-main">
                 <SearchBar setRequestOptions={setRequestOptions} />
-                <LoadingSpinner className="jobs__loading-icon" />
+                <LoadingSpinner className="loading-icon" />
             </main>  
         )
     }
 
     if (isSuccess)
         return (
-            <main className="jobs">
+            <main className="jobs-main">
                 <SearchBar setRequestOptions={setRequestOptions} />
                 <div className="job-list">
                     {jobs && jobs.pages.map((page, index) => (
@@ -100,9 +89,7 @@ function JobListIndex() {
                         )
                     )}
                 </div>
-
-                {/* <JobList jobs={jobs} /> */}
-                <button onClick={() => fetchMoreJobs()} className="jobs__button button1">Load More</button>
+                <button onClick={() => fetchMoreJobs()} className="load-more-button button1">Load More</button>
             </main>  
         )
 
