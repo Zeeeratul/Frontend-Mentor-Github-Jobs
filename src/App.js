@@ -1,5 +1,7 @@
 import React from 'react';
 import { useTheme } from './utils/useTheme';
+import { ErrorBoundary } from 'react-error-boundary'
+import { ErrorFallback } from './component/ErrorFallback'
 import Header from './component/Header';
 import Index from './pages/index/';
 import Job from './pages/job/';
@@ -21,17 +23,22 @@ function App() {
     return (
         <div className={`app theme-${theme}`}>
             <QueryClientProvider client={queryClient}>
-                <Router>
-                    <Header theme={theme} changeTheme={changeTheme} />
-                    <Switch>
-                        <Route exact path="/">
-                            <Index />
-                        </Route>
-                        <Route path="/:jobId">
-                            <Job />
-                        </Route>
-                    </Switch>
-                </Router>
+                <ErrorBoundary
+                    FallbackComponent={ErrorFallback}
+                    onReset={() => {window.location.reload()}}
+                >
+                   <Router>
+                        <Header theme={theme} changeTheme={changeTheme} />
+                        <Switch>
+                            <Route exact path="/">
+                                <Index />
+                            </Route>
+                            <Route path="/:jobId">
+                                <Job />
+                            </Route>
+                        </Switch>
+                    </Router>
+                </ErrorBoundary>
             </QueryClientProvider>
         </div>
     )

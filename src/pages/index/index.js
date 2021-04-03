@@ -7,11 +7,10 @@ import { useJobs } from '../../utils/useJobs'
 function JobListIndex() {
     const [requestOptions, setRequestOptions] = useState({})
 
-
-    // error boundary
     const {
         jobs,
         fetchMoreJobs,
+        error,
         isFetching,
         isLoading,
         isSuccess,
@@ -47,9 +46,7 @@ function JobListIndex() {
             </main>  
         )
 
-    return (
-        <p>not possible </p>
-    );
+    throw Error(error)
 }
 
 export default JobListIndex;

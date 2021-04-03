@@ -2,7 +2,6 @@ import React from 'react';
 import { calculateTimeSinceCreation } from '../../utils/calculateTimeSinceCreation';
 
 const Main = ({ job }) => {
-    console.log(job)
     const {location, created_at, description, how_to_apply, title, type, company_url, company_logo, company} = job
     
     const handleRedirectCompanyWebsite = () => {

@@ -46,6 +46,7 @@ const useJob = (jobId) => {
 
   const {
     data: job,
+    error,
     isLoading,
     isError,
     isSuccess,
@@ -53,6 +54,7 @@ const useJob = (jobId) => {
 
   return {
     job,
+    error,
     isLoading,
     isError,
     isSuccess,

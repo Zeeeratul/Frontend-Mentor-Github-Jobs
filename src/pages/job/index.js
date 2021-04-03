@@ -1,6 +1,6 @@
 import React from 'react';
 import { useJob } from '../../utils/useJobs';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { ReactComponent as LoadingSpinner } from '../../assets/desktop/loading-circle.svg';
 import Main from './Main';
 import Footer from './Footer';
@@ -11,6 +11,8 @@ function JobIndex() {
         job,
         isLoading,
         isSuccess,
+        isError,
+        error
     } = useJob(jobId)
 
     if (isLoading) 
@@ -26,9 +28,16 @@ function JobIndex() {
             </>
         )
 
-    return (
-        <p>error</p>
-    );
+    if (isError && error === "not found") {
+        return (
+            <div className="error">
+                <p className="error__text">Sorry this job doesn't seem to exist ...</p>
+                <Link className="error__link button1" to="/">Go back Home</Link>
+            </div>
+        )
+    }
+
+    throw Error(error)
 }
 
 export default JobIndex;
