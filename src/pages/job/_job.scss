@@ -67,10 +67,11 @@
                         background-color: transparent;
                     }
                 }
-
             }
 
             &__text-block {
+                text-align: center;
+                word-break: break-all;
                 @include breakpoint-up(medium) {
                     margin-left: 40px;
                 }

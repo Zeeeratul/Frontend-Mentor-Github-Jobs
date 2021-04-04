@@ -8,7 +8,7 @@ function useJobs({ description, location, full_time }) {
   const fetchJobs = ({ pageParam = 1 }) => {
     const descriptionParam = description ? `&description=${description}` : ''
     const locationParam = location ? `&location=${location}` : ''
-    const fullTimeParam = full_time ? '&full_time=true' : ''
+    const fullTimeParam = full_time ? '&full_time=on' : ''
     return client(`positions.json?page=${pageParam}${descriptionParam}${locationParam}${fullTimeParam}`)
   }
 
@@ -26,7 +26,6 @@ function useJobs({ description, location, full_time }) {
     fetchNextPage({ pageParam: page + 1 })
   }
 
-  // when description / location / full_time change, set Page to initial (page 1)
   useEffect(() => {
     setPage(1)
   }, [description, location, full_time])

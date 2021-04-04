@@ -5,7 +5,11 @@ import {ReactComponent as LoadingSpinner} from '../../assets/desktop/loading-cir
 import { useJobs } from '../../utils/useJobs'
 
 function JobListIndex() {
-    const [requestOptions, setRequestOptions] = useState({})
+    const [requestOptions, setRequestOptions] = useState({
+        full_time: false,
+        description: '',
+        location: ''
+    })
 
     const {
         jobs,

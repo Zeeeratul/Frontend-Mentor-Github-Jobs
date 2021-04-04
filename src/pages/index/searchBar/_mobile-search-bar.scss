@@ -19,6 +19,11 @@
         @include themify($themes) {
             color: themed('primary-text-color');
         }
+
+        @include breakpoint-down(extra-small) {
+            width: 120px;
+            margin-right: 12px;
+        }
     }
 
     &__filter {

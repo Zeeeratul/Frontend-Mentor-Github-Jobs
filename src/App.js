@@ -15,7 +15,14 @@ import {
     QueryClientProvider,
 } from 'react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+          retry: 3,
+          staleTime: 60 * 1000
+        },
+    },
+});
 
 function App() {
     const { theme, changeTheme } = useTheme()
